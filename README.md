@@ -1,13 +1,17 @@
 # Truncated Vendi Score Implementation
 
-[Paper: On the Statistical Complexity of Estimating Vendi Scores from Empirical Data](https://arxiv.org/abs/2410.21719)
+[Paper: Do Vendi Scores Converge with Finite Samples? Truncated Vendi Score for Finite-Sample Convergence Guarantees](https://openreview.net/forum?id=Vb5sG3ZQjE&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3Dauai.org%2FUAI%2F2025%2FConference%2FAuthors%23your-submissions))
  
-This repository provides an implementation of the truncated Vendi score, an entropy‐based diversity metric on kernel eigenvalues, along with an efficient Nyström‐approximation variant. It serves as the official code companion for the “On the Statistical Complexity of Estimating Vendi Scores from Empirical Data” paper.
+This repository provides an implementation of the truncated Vendi score, an entropy‐based diversity metric on kernel eigenvalues, along with an efficient Nyström‐approximation variant. It serves as the official code companion for the “Do Vendi Scores Converge with Finite Samples? Truncated Vendi Score for Finite-Sample Convergence Guarantees” paper.
 
-## Abstract
-Abstract: Evaluating the diversity of generative models without access to reference data poses methodological challenges. The reference-free Vendi score offers a solution by quantifying the diversity of generated data using matrix-based entropy measures. The Vendi score is usually computed via the eigendecomposition of an $n \times n$ kernel matrix for $n$ generated samples. However, the heavy computational cost of eigendecomposition for large $n$ often limits the sample size used in practice to a few tens of thousands. In this paper, we investigate the statistical convergence of the Vendi score. We numerically demonstrate that for kernel functions with an infinite feature map dimension, the score estimated from a limited sample size may exhibit a non-negligible bias relative to the population Vendi score, i.e., the asymptotic limit as the sample size approaches infinity. To address this, we introduce a truncation of the Vendi statistic, called the $t$-truncated Vendi statistic, which is guaranteed to converge to its asymptotic limit given $n=O(t)$ samples. We show that the existing Nyström method and the FKEA approximation method for approximating the Vendi score both converge to the population truncated Vendi score. We perform several numerical experiments to illustrate the concentration of the Nyström and FKEA-computed Vendi scores around the truncated Vendi and discuss how the truncated Vendi score correlates with the diversity of image and text data.
+## Convergence of Finite and Infinite dimensional Kernel-based Diversity Measures
+![](figures/convergence.png)
+
+## Truncation Algorithm Overview
+![](figures/diagram.png)
 
 ## Example Usage - Computing Original Vendi Score (with $\alpha=1$)
+
 ```python
 from truncated_vendi import TruncatedVendi
 import torch
@@ -44,7 +48,7 @@ score = vendi.compute_score(
 print(f"Vendi [alpha=1] [t=500] (RBF): {score:.2f}")
 ```
 
-## Example Usage - Computing Efficient Nystorm-based Truncated Vendi Score (with $\alpha=2$)
+## Example Usage - Computing Efficient Nyström-based Truncated Vendi Score (with $\alpha=2$)
 ```python
 from truncated_vendi import TruncatedVendi
 import torch
@@ -69,3 +73,14 @@ print(f"Vendi [alpha=2] [t=500] (RBF-Nystrom): {score:.2f}")
 - The script is compatible with any embedding space across image, text, video and audio modailities
 
 ## Cite our work
+
+```text
+@inproceedings{
+ospanov2025do,
+title={Do Vendi Scores Converge with Finite Samples? Truncated Vendi Score for Finite-Sample Convergence Guarantees},
+author={Azim Ospanov and Farzan Farnia},
+booktitle={The 41st Conference on Uncertainty in Artificial Intelligence},
+year={2025},
+url={https://openreview.net/forum?id=Vb5sG3ZQjE}
+}
+```
